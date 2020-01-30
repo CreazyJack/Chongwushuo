@@ -7,6 +7,7 @@ initState = {
   userData: {},
   messageHeight: 0,
   messageWidth: 0,
+  borderWidth: 0,
 }
 
 export default (state = initState, action) => {
@@ -17,7 +18,7 @@ export default (state = initState, action) => {
         suc: '正在登录...',
         messageHeight: 40,
         messageWidth: 100,
-
+        borderWidth: 1,
       }
     case actionType.LOGIN:
       return {
@@ -33,6 +34,7 @@ export default (state = initState, action) => {
         suc: '登陆成功',
         messageHeight: 0,
         messageWidth: 0,
+        borderWidth: 0,
       }
     case actionType.CHANGE_AVATAR:
       return {

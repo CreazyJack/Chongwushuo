@@ -22,7 +22,7 @@ export const login = () => {
           dispatch({
             type: actionType.LOGIN,
             payload: {
-              userData: resp.data.data
+              userData: resp.data.data,
             }
           })
           setTimeout(() => {
@@ -32,24 +32,17 @@ export const login = () => {
     }, 1000);
   }
 }
+
 // export const login = () => {
-//   return dispatch => {
-//     dispatch(logStart())
-
-//     loginRequest()
-//       .then(resp => {
-//         dispatch({
-//           type: actionType.LOGIN,
-//           payload: {
-//             userData: resp.data.data
-//           }
-//         })
-
-//         dispatch(logSuccess())
-
-//       })
-
-//   }
+//   loginRequest()
+//     .then(resp => {
+//       return {
+//         type: actionType.LOGIN,
+//         payload: {
+//           userData: resp.data.data
+//         }
+//       }
+//     })
 // }
 
 export const changeAvatar = (userData) => {

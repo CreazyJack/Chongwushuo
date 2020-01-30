@@ -10,7 +10,6 @@ import { connect } from 'react-redux'
 
 class BottomNav extends PureComponent {
   render() {
-    console.log(this.props.theme.color)
     const Home = createStackNavigator(
       {
         HomeScreen: {
@@ -122,7 +121,7 @@ class BottomNav extends PureComponent {
         },
       },
       {
-        initialRouteName: this.props.user.userData.name ? 'HomeScreen' : 'LoginScreen',
+        initialRouteName: 'LoginScreen'
       },
     )
 

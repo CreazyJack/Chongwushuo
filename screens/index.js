@@ -15,5 +15,5 @@ export {
   HomeScreen,
   PlayVideoScreen,
   ThemeScreen,
-  ContactUsScreen
+  ContactUsScreen,
 }
