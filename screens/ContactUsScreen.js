@@ -88,8 +88,6 @@ class ContactUsScreen extends PureComponent {
     )
   }
 
-
-
   submit = () => {
     if (!this.state.textContent) {
       Alert.alert('内容不能为空')
@@ -133,5 +131,4 @@ const styles = StyleSheet.create({
 })
 
 const mapState = ({ theme }) => ({ theme })
-
 export default connect(mapState)(ContactUsScreen)

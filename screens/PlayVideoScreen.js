@@ -122,18 +122,10 @@ class PlayVideoScreen extends PureComponent {
                 "avatar": this.props.user.userData.avatar,
                 "likeAmount": 0
               })
-              // mocks.commentListData.data.list.unshift({
-              //   "name": this.props.user.userData.name,
-              //   "content": this.state.commentContent,
-              //   "createAt": "1550310390\n",
-              //   "like": false,
-              //   "avatar": this.props.user.userData.avatar,
-              //   "likeAmount": 0
-              // })
               this.props.getCommentsList()
-              this.setState({
-                commentContent: ''
-              })
+              // this.setState({
+              //   commentContent: ''
+              // })
             }}
           >
             <Text style={{ ...styles.commentButton, width: this.state.commentButtonWidth }}>评论</Text>

@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react'
-import { Text, StyleSheet, View, Image, TouchableHighlight, FlatList, RefreshControl } from 'react-native'
+import { Text, StyleSheet, View, Image, TouchableOpacity, FlatList, RefreshControl } from 'react-native'
 import { theme } from '../constants'
 import { MaterialCommunityIcons, AntDesign, Feather } from "react-native-vector-icons"
 import { connect } from 'react-redux'
@@ -25,7 +25,7 @@ export default class VideoList extends PureComponent {
           <RefreshControl
             refreshing={this.state.isLoading}
             onRefresh={() => this.onRefresh()}
-            colors={[theme.colors.pinkGlamour]}
+            colors={[this.props.color]}
             progressBackgroundColor={theme.colors.white}
           // progressViewOffset={theme.height * 0.5}
           />
@@ -51,7 +51,7 @@ export default class VideoList extends PureComponent {
 }
 
 const VideoBox = ({ goToVideo, data }) => (
-  <TouchableHighlight
+  <TouchableOpacity
     onPress={() => {
       goToVideo(data.title)
     }}
@@ -95,7 +95,7 @@ const VideoBox = ({ goToVideo, data }) => (
         </View>
       </View>
     </View >
-  </TouchableHighlight>
+  </TouchableOpacity>
 )
 
 const styles = StyleSheet.create({

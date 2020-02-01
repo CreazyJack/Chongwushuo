@@ -31,7 +31,11 @@ class ThemeScreen extends PureComponent {
         {/* 内容 */}
         <TouchableOpacity
           style={{ ...styles.container, backgroundColor: theme.colors.gray }}
-          onPress={this.props.gray}
+          // onPress={this.props.gray}
+          onPress={() => {
+            this.props.navigation.setParams({ color: '#fd79a8' })
+            console.log(this.props.navigation.getParam('color'))
+          }}
         >
           <Text style={{ color: theme.colors.white }}> gray </Text>
         </TouchableOpacity>

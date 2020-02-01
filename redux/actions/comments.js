@@ -37,6 +37,7 @@ export const commentHeadCop = () => ({
 //       })
 //   }
 // }
+
 var commentList = mocks.commentListData.data.list
 export const getCommentsList = () => {
   return dispatch => {

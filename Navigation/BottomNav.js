@@ -5,7 +5,7 @@ import { createDrawerNavigator } from 'react-navigation-drawer'
 import { SettingScreen, ThemeScreen, ContactUsScreen, LoginScreen, HomeScreen, HandleVideoScreen, PlayVideoScreen } from '../screens'
 import { Ionicons, Feather } from "react-native-vector-icons"
 import { SideContent } from '../Components'
-import { createAppContainer } from 'react-navigation'
+import { createAppContainer, createSwitchNavigator } from 'react-navigation'
 import { connect } from 'react-redux'
 
 class BottomNav extends PureComponent {
@@ -55,11 +55,8 @@ class BottomNav extends PureComponent {
         initialRouteName: 'home',
         tabBarOptions: {
           activeTintColor: this.props.theme.color,
-          // inactiveTintColor: theme.colors.pinkGlamour,
           showLabel: false,
           style: {
-            // borderTopWidth: 0,
-            // backgroundColor: theme.colors.firstDate,
             borderTopLeftRadius: 0,
             borderTopRightRadius: 0,
             paddingHorizontal: 30
@@ -67,6 +64,7 @@ class BottomNav extends PureComponent {
         }
       }
     )
+
     const HomeDrawer = createDrawerNavigator(
       // RouteConfigs
       {
@@ -80,7 +78,7 @@ class BottomNav extends PureComponent {
         )
       }
     )
-
+    
     const appNav = createStackNavigator(
       {
         HomeScreen: {
@@ -130,5 +128,5 @@ class BottomNav extends PureComponent {
   }
 }
 
-const mapState = ({ theme, user }) => ({ theme, user })
+const mapState = ({ theme }) => ({ theme })
 export default connect(mapState)(BottomNav)

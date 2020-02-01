@@ -13,6 +13,7 @@ const logSuccess = () => {
     type: actionType.LOGIN_SUCCESS,
   }
 }
+
 export const login = () => {
   return dispatch => {
     dispatch(logStart())
@@ -32,6 +33,23 @@ export const login = () => {
     }, 1000);
   }
 }
+
+// export const login = () => {
+//   return dispatch => {
+//     dispatch(logStart())
+//     loginRequest()
+//       .then(resp => {
+//         console.log(resp.data.data)
+//         dispatch({
+//           type: actionType.LOGIN,
+//           payload: {
+//             userData: resp.data.data,
+//           }
+//         })
+//         dispatch(logSuccess())
+//       })
+//   }
+// }
 
 // export const login = () => {
 //   loginRequest()

@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react'
-import { StyleSheet, View, Text, ActivityIndicator, TouchableOpacity, TouchableHighlight } from 'react-native'
+import { StyleSheet, View, Text, ActivityIndicator, TouchableOpacity } from 'react-native'
 import { theme } from '../constants'
 import { VideoList } from '../Components'
 import { connect } from 'react-redux'
@@ -10,7 +10,6 @@ import { Feather } from "react-native-vector-icons"
 
 
 const { colors, width, height, sizes } = theme
-
 class HomeScreen extends PureComponent {
   componentDidMount() {
     this.getData()
@@ -26,13 +25,14 @@ class HomeScreen extends PureComponent {
   }
 
   render() {
+    console.log(this.props.navigation)
     return (
       <View style={styles.container}>
         {/* 加载动画 */}
         <ActivityIndicator
           animating={this.props.videos.isLoading}
           style={{ position: 'absolute', top: theme.height * 0.3 }}
-          color={theme.colors.pinkGlamour}
+          color={this.props.theme.color}
           size='large'
         />
 
@@ -53,6 +53,7 @@ class HomeScreen extends PureComponent {
           goToVideo={this.goToVideo}
           isLoading={this.props.videos.isLoading}
           getData={this.getData}
+          color={this.props.theme.color}
         />
       </View>
     )
