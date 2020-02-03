@@ -1,14 +1,14 @@
-import React, { PureComponent } from 'react'
+import React, { Component } from 'react'
 import { createBottomTabNavigator } from 'react-navigation-tabs'
 import { createStackNavigator } from 'react-navigation-stack'
 import { createDrawerNavigator } from 'react-navigation-drawer'
 import { SettingScreen, ThemeScreen, ContactUsScreen, LoginScreen, HomeScreen, HandleVideoScreen, PlayVideoScreen } from '../screens'
 import { Ionicons, Feather } from "react-native-vector-icons"
 import { SideContent } from '../Components'
-import { createAppContainer, createSwitchNavigator } from 'react-navigation'
+import { createAppContainer } from 'react-navigation'
 import { connect } from 'react-redux'
 
-class BottomNav extends PureComponent {
+class AppNav extends Component {
   render() {
     const Home = createStackNavigator(
       {
@@ -78,7 +78,7 @@ class BottomNav extends PureComponent {
         )
       }
     )
-    
+
     const appNav = createStackNavigator(
       {
         HomeScreen: {
@@ -126,7 +126,12 @@ class BottomNav extends PureComponent {
     const AppNav = createAppContainer(appNav)
     return <AppNav />
   }
+  // shouldComponentUpdate(nextProps, nextState) {
+  //   if (nextProps.theme.color !== this.props.theme.color){
+  //     return false
+  //   }
+  // }
 }
 
 const mapState = ({ theme }) => ({ theme })
-export default connect(mapState)(BottomNav)
+export default connect(mapState)(AppNav)

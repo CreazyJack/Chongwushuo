@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react'
 import { Text, View, StyleSheet, TouchableOpacity, FlatList, Image } from 'react-native'
 import { connect } from 'react-redux'
 import { theme } from '../constants'
-// import moduleName from 'module'
+import { loginFail } from '../redux/actions/user'
 
 class SideContent extends PureComponent {
   constructor() {
@@ -34,7 +34,7 @@ class SideContent extends PureComponent {
         {/* 功能列表 */}
         <FlatList
           data={sideListData}
-          renderItem={({ item }) => <SideBox data={item} navigation={this.props.navigation} />}
+          renderItem={({ item }) => <SideBox data={item} navigation={this.props.navigation} logOut={this.props.loginFail} />}
           keyExtractor={(item, index) => index.toString()}
         />
       </View>
@@ -61,9 +61,13 @@ const sideListData = [
   },
 ]
 
-const SideBox = ({ data, navigation }) => (
+const SideBox = ({ data, navigation, logOut }) => (
   <TouchableOpacity
     onPress={() => {
+      if (data.route === 'LoginScreen') {
+        logOut()
+        navigation.navigate(data.route)
+      }
       navigation.navigate(data.route)
     }}
     style={styles.sideBox}
@@ -87,4 +91,4 @@ const styles = StyleSheet.create({
 })
 
 const mapState = ({ theme, user }) => ({ theme, user })
-export default connect(mapState)(SideContent)
+export default connect(mapState, { loginFail })(SideContent)

@@ -78,7 +78,6 @@ class SettingScreen extends PureComponent {
             <Text style={{ alignSelf: 'center', fontSize: 14 }}>昵称</Text>
             <TextInput
               style={styles.name}
-              defaultValue={this.state.username}
               maxLength={8}
               onChangeText={value => this.setState({ username: value })}
             />
@@ -145,34 +144,40 @@ class SettingScreen extends PureComponent {
     }
   }
   _submit = () => {
-    const userData = {
-      name: this.state.username,
-      sex: this.state.sex,
-      avatar: this.state.avatar,
-      phoneNum: this.state.phoneNum
-    }
-    Keyboard.dismiss()
-    this.props.changeAvatar(userData)
-    this.setState({
-      messageWidth: 100,
-      messageHeight: 40,
-      suc: '正在保存',
-      borderWidth: 1
-    }, () => setTimeout(() => {
+    const { username, sex, avatar, phoneNum } = this.state
+    console.log(username,sex,avatar,phoneNum)
+    if (username && sex && phoneNum) {
+      const userData = {
+        name: this.state.username,
+        sex: this.state.sex,
+        avatar: this.state.avatar,
+        phoneNum: this.state.phoneNum
+      }
+      Keyboard.dismiss()
+      this.props.changeAvatar(userData)
       this.setState({
         messageWidth: 100,
         messageHeight: 40,
-        suc: '保存成功',
+        suc: '正在保存',
         borderWidth: 1
       }, () => setTimeout(() => {
         this.setState({
-          messageWidth: 0,
-          messageHeight: 0,
-          suc: '',
-          borderWidth: 0
-        })
+          messageWidth: 100,
+          messageHeight: 40,
+          suc: '保存成功',
+          borderWidth: 1
+        }, () => setTimeout(() => {
+          this.setState({
+            messageWidth: 0,
+            messageHeight: 0,
+            suc: '',
+            borderWidth: 0
+          })
+        }, 1000))
       }, 1000))
-    }, 1000))
+      return
+    }
+    Alert.alert('内容不能为空！')
   }
 
   UNSAFE_componentWillMount() {
@@ -198,7 +203,7 @@ const styles = StyleSheet.create({
   },
   name: {
     width: 150,
-    lineHeight: 30,
+    // lineHeight: 30,
     borderRadius: 10,
     borderWidth: 1,
     borderColor: colors.gray,

@@ -1,11 +1,14 @@
 import React, { PureComponent } from 'react'
-import { Text, StyleSheet, View, TextInput, TouchableOpacity, Alert, Keyboard, AsyncStorage } from 'react-native'
+import { Text, StyleSheet, View, TextInput, TouchableOpacity, Alert, Keyboard } from 'react-native'
 import { connect } from 'react-redux'
 import { theme } from '../constants'
 import CountDown from 'react-native-zycountdown'
 import { login } from '../redux/actions/user'
 import { Toast } from '../Components'
 import { loginRequest } from '../Components/requests'
+import { StackActions, NavigationActions } from 'react-navigation';
+
+
 
 const { colors, width, height } = theme
 class LoginScreen extends PureComponent {
@@ -45,7 +48,7 @@ class LoginScreen extends PureComponent {
             />
             <CountDown
               style={styles.countDown}
-              onClick={() => true}
+              onClick={this.countDown}
               title='发送验证码'
               frontText='请等待'
             />
@@ -69,6 +72,13 @@ class LoginScreen extends PureComponent {
             >登录</Text>
           </TouchableOpacity>
         </View>
+        {/* 可以使用单一数据来判断该 toast 的显示与否，如：
+          this.props....
+          ?
+          <Toast/>
+          :
+          null
+        */}
         <Toast
           style={{
             width: this.props.user.messageWidth,
@@ -85,17 +95,31 @@ class LoginScreen extends PureComponent {
     )
   }
 
-  login = () => {
-    loginRequest()
-      .then(resp => {
-        console.log(resp.data.data)
-        const userData = resp.data.data
-      })
-      .finally(() => {
-        // this.props.navigation.navigate('HomeScreen')
-      })
-
+  // 验证码按钮
+  countDown = () => {
+    if (this.state.phoneNum) {
+      return true
+    }
+    Alert.alert('手机号不能为空！')
+    return false
   }
+
+  resetAction = StackActions.reset({
+    index: 0,
+    actions: [NavigationActions.navigate({ routeName: 'HomeScreen' })],
+  })
+
+  // login = () => {
+  //   loginRequest()
+  //     .then(resp => {
+  //       console.log(resp.data.data)
+  //       const userData = resp.data.data
+  //     })
+  //     .finally(() => {
+  //       // this.props.navigation.navigate('HomeScreen')
+  //     })
+  // }
+
   loginButton = () => {
     if (this.state.phoneNum === null || this.state.verificationCode === null) {
       Alert.alert('手机号或验证码不能为空！')
@@ -103,16 +127,25 @@ class LoginScreen extends PureComponent {
     }
     Keyboard.dismiss()
     this.props.login(setTimeout(() => {
-      this.props.navigation.navigate('HomeScreen')
-      this.setState({
+      // this.props.navigation.navigate('HomeScreen')
+       this.setState({
         phoneNum: null,
         verificationCode: null
       })
+      this.props.navigation.dispatch(this.resetAction)
     }, 2000))
   }
+
+  // setParamsAction = NavigationActions.setParams({
+  //   params: { title: 'Hello' },
+  //   key: 'screen-123',
+  // });
+  // this.props.navigation.dispatch(setParamsAction)
+
+  
   componentDidMount() {
     if (this.props.user.userData.name) {
-      this.props.navigation.navigate('HomeScreen')
+      this.props.navigation.dispatch(this.resetAction)
     }
   }
 }

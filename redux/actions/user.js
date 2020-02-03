@@ -34,34 +34,14 @@ export const login = () => {
   }
 }
 
-// export const login = () => {
-//   return dispatch => {
-//     dispatch(logStart())
-//     loginRequest()
-//       .then(resp => {
-//         console.log(resp.data.data)
-//         dispatch({
-//           type: actionType.LOGIN,
-//           payload: {
-//             userData: resp.data.data,
-//           }
-//         })
-//         dispatch(logSuccess())
-//       })
-//   }
-// }
 
-// export const login = () => {
-//   loginRequest()
-//     .then(resp => {
-//       return {
-//         type: actionType.LOGIN,
-//         payload: {
-//           userData: resp.data.data
-//         }
-//       }
-//     })
-// }
+
+export const loginFail = () => {
+  console.log('logout!')
+  return {
+    type: actionType.LOGIN_Fail
+  }
+}
 
 export const changeAvatar = (userData) => {
   return {

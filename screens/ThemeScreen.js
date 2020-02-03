@@ -1,16 +1,38 @@
-import React, { PureComponent } from 'react'
-import { Text, View, StyleSheet, TouchableOpacity } from 'react-native'
-import { connect } from 'react-redux'
+import React, {
+  PureComponent
+} from 'react'
+import {
+  Text,
+  View,
+  StyleSheet,
+  TouchableOpacity
+} from 'react-native'
+import {
+  connect
+} from 'react-redux'
 import {
   gray,
   fadedPoster,
   secondary,
   pinkGlamour
 } from '../redux/actions/theme'
-import { theme } from '../constants'
-import { Ionicons, AntDesign, Feather } from "react-native-vector-icons"
+import {
+  theme
+} from '../constants'
+import {
+  Ionicons,
+  AntDesign,
+  Feather
+} from "react-native-vector-icons"
+import {
+  NavigationActions
+} from 'react-navigation'
+
 
 class ThemeScreen extends PureComponent {
+  state = {
+    color: '测试'
+  }
   render() {
     return (
       <View style={styles.container}>
@@ -32,10 +54,7 @@ class ThemeScreen extends PureComponent {
         <TouchableOpacity
           style={{ ...styles.container, backgroundColor: theme.colors.gray }}
           // onPress={this.props.gray}
-          onPress={() => {
-            this.props.navigation.setParams({ color: '#fd79a8' })
-            console.log(this.props.navigation.getParam('color'))
-          }}
+          onPress={this.props.gray}
         >
           <Text style={{ color: theme.colors.white }}> gray </Text>
         </TouchableOpacity>
@@ -56,10 +75,13 @@ class ThemeScreen extends PureComponent {
           onPress={this.props.pinkGlamour}
         >
           <Text style={{ color: theme.colors.white }}> 默认 </Text>
-        </TouchableOpacity>
+        </TouchableOpacity> 
       </View>
     )
   }
+
+
+
 }
 
 const styles = StyleSheet.create({
@@ -78,7 +100,11 @@ const styles = StyleSheet.create({
   }
 })
 
-const mapState = ({ theme }) => ({ theme })
+const mapState = ({
+  theme
+}) => ({
+  theme
+})
 export default connect(mapState, {
   gray,
   fadedPoster,

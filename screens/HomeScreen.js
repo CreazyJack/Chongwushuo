@@ -1,31 +1,22 @@
 import React, { PureComponent } from 'react'
-import { StyleSheet, View, Text, ActivityIndicator, TouchableOpacity } from 'react-native'
+import { StyleSheet, View, Text, ActivityIndicator, TouchableOpacity, BackHandler } from 'react-native'
 import { theme } from '../constants'
 import { VideoList } from '../Components'
 import { connect } from 'react-redux'
 import { getVideoList } from '../redux/actions/videos'
 import { getCommentsList } from '../redux/actions/comments'
 import { Feather } from "react-native-vector-icons"
-
+import { NativeEventEmitter, NativeModules } from 'react-native'
 
 
 const { colors, width, height, sizes } = theme
+
 class HomeScreen extends PureComponent {
-  componentDidMount() {
-    this.getData()
+  state = {
+    isShowToast: false,
+    isBack: false
   }
-
-  goToVideo = (title) => {
-    this.props.navigation.navigate('PlayVideoScreen', { title })
-  }
-
-  getData = () => {
-    this.props.getVideoList()
-    // this.props.getCommentsList()
-  }
-
   render() {
-    console.log(this.props.navigation)
     return (
       <View style={styles.container}>
         {/* 加载动画 */}
@@ -57,6 +48,39 @@ class HomeScreen extends PureComponent {
         />
       </View>
     )
+  }
+
+  goToVideo = (title) => {
+    this.props.navigation.navigate('PlayVideoScreen', { title })
+  }
+
+  getData = () => {
+    this.props.getVideoList()
+  }
+
+  onBackAndroid = () => {
+    const { navigate } = this.props.navigation
+    // if(!this.state.isBack) {
+    //   navigate('HomeScreen')
+    //   this.setState({
+    //     isBack: true,
+    //     isShowToast: true
+    //   },() => setTimeout(() => {
+    //     this.setState({
+    //       isBack: false,
+    //       isShowToast: false
+    //     })
+    //   }, 1000))
+    //   return false
+    // }
+    // return true
+  }
+  componentDidMount() {
+    this.getData()
+    // BackHandler.addEventListener('hardwareBackPress', this.onBackAndroid)
+  }
+  componentWillUnmount() {
+    // BackHandler.removeEventListener('hardwareBackPress', this.onBackAndroid);
   }
 }
 

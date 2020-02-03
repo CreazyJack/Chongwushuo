@@ -39,9 +39,15 @@ export default (state = initState, action) => {
     case actionType.CHANGE_AVATAR:
       return {
         ...state,
+        userData: action.payload.userData
+      }
+    case actionType.LOGIN_Fail:
+      return {
+        ...state,
         userData: {
-          ...state.userData,
-          ...action.payload.userData
+          name: '',
+          avatar: '',
+          id: null
         }
       }
     default:
